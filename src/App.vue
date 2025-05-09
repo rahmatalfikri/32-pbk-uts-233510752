@@ -1,23 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
-const tasks = ref([
-  {
-    id: 1,
-    title: 'Task 1',
-    completed: false
-  },
-  {
-    id: 2,
-    title: 'Task 2',
-    completed: true
-  },
-  {
-    id: 3,
-    title: 'Task 3',
-    completed: false
-  }
-])
+const tasks = ref([])
 const newTask = ref('')
 
 const addTask = () => {
@@ -34,6 +18,8 @@ const removeTask = (taskId) => {
   tasks.value = tasks.value.filter(task => task.id !== taskId)
 }
 
+const countTasks = computed(() => tasks.value.length)
+
 </script>
 
 <template>
@@ -47,6 +33,7 @@ const removeTask = (taskId) => {
         <button @click="removeTask(task.id)">Remove</button>
       </li>
     </ul>
+    <p>Total Tasks: {{ countTasks }}</p>
   </div>
 </template>
 
