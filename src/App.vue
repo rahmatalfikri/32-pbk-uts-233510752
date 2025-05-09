@@ -1,5 +1,5 @@
 <script setup>
-import  { ref } from 'vue'
+import { ref } from 'vue'
 
 const tasks = ref([
   {
@@ -30,6 +30,10 @@ const addTask = () => {
   newTask.value = ''
 }
 
+const removeTask = (taskId) => {
+  tasks.value = tasks.value.filter(task => task.id !== taskId)
+}
+
 </script>
 
 <template>
@@ -38,12 +42,12 @@ const addTask = () => {
     <button @click="addTask">Add Task</button>
     <ul>
       <li v-for="task in tasks" :key="task.id">
+        <input type="checkbox" v-model="task.completed">
         {{ task.title }} - {{ task.completed ? 'Completed' : 'Not Completed' }}
+        <button @click="removeTask(task.id)">Remove</button>
       </li>
     </ul>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
