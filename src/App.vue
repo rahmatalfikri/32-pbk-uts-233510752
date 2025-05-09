@@ -18,10 +18,24 @@ const tasks = ref([
     completed: false
   }
 ])
+const newTask = ref('')
+
+const addTask = () => {
+  if (newTask.value.trim() === '') return
+  tasks.value.push({
+    id: tasks.value.length + 1,
+    title: newTask.value,
+    completed: false
+  })
+  newTask.value = ''
+}
+
 </script>
 
 <template>
   <div>
+    <input type="text" v-model="newTask" placeholder="Add a new task">
+    <button @click="addTask">Add Task</button>
     <ul>
       <li v-for="task in tasks" :key="task.id">
         {{ task.title }} - {{ task.completed ? 'Completed' : 'Not Completed' }}
